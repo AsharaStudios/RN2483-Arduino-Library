@@ -165,15 +165,6 @@ bool rn2xx3::initOTAA(String AppEUI, String AppKey, String DevEUI)
     sendRawCommand("mac set appkey "+_appskey);
   }
 
-  if (_moduleType == RN2903)
-  {
-    sendRawCommand(F("mac set pwridx 5"));
-  }
-  else
-  {
-    sendRawCommand(F("mac set pwridx 1"));
-  }
-
   // TTN does not yet support Adaptive Data Rate.
   // Using it is also only necessary in limited situations.
   // Therefore disable it by default.
@@ -191,6 +182,14 @@ bool rn2xx3::initOTAA(String AppEUI, String AppKey, String DevEUI)
   //   sendRawCommand(F("mac set rx2 3 869525000"));
   // }
   // Disabled for now because an OTAA join seems to work fine without.
+  if (_moduleType == RN2903)
+  {
+    sendRawCommand(F("mac set pwridx 5"));
+  }
+  else
+  {
+    sendRawCommand(F("mac set pwridx 1"));
+  }
 
   _serial.setTimeout(30000);
   sendRawCommand(F("mac save"));
